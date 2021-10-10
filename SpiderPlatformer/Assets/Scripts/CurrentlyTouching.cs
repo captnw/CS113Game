@@ -7,6 +7,17 @@ public class CurrentlyTouching : MonoBehaviour
 {
     // Works as long as you don't jump into the floor (cause sliding)
 
+    public enum DirectionCollider
+    {
+        TOP,
+        LEFT,
+        RIGHT,
+        BOTTOM
+    };
+
+    public delegate void OnDirectionColliderColliding(DirectionCollider newDirection);
+    public OnDirectionColliderColliding DirectionColliderEvent;
+
     public delegate void OnFirstCollideOrNoLongerColliding();
     public OnFirstCollideOrNoLongerColliding CollideStatusChangeEvent;
 
@@ -17,6 +28,23 @@ public class CurrentlyTouching : MonoBehaviour
     }
     private bool m_isColliderTouchingAnything = false;
 
+    public List<DirectionCollider> WhatDirectionDidWeCollideIn
+    {
+        get 
+        { 
+            List<DirectionCollider> newList = new List<DirectionCollider>();
+                for (int i = 0; i < directionsColliding.Length; i++)
+                {
+                    if (directionsColliding[i])
+                    {
+                        newList.Add((DirectionCollider)i);
+                    }
+                }
+            return newList;
+        }
+    }
+    private bool[] directionsColliding = new bool[4];
+
     private HashSet<GameObject> m_stuffTouching; // store the set of GameObjects that is touching the spider
     
     public GameObject FirstCollidedObject
@@ -26,12 +54,16 @@ public class CurrentlyTouching : MonoBehaviour
     }
     private GameObject m_firstObject;
 
+    private const string PLAYER_TAG = "Player";
+
     #region Monobehaviour functions
 
     // Start is called before the first frame update
     private void Start()
     {
         m_stuffTouching = new HashSet<GameObject>();
+
+        DirectionColliderEvent += CollidedInDirection;
     }
 
     #endregion
@@ -40,7 +72,7 @@ public class CurrentlyTouching : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (CollideStatusChangeEvent != null && IsStuffTouchingEmpty())
+        if (CollideStatusChangeEvent != null && IsStuffTouchingEmpty() && !collision.gameObject.CompareTag(PLAYER_TAG))
         {
             m_firstObject = collision.collider.gameObject;
             IsColliderTouchingAnything = true;
@@ -57,7 +89,7 @@ public class CurrentlyTouching : MonoBehaviour
     {
         m_stuffTouching.Remove(collision.collider.gameObject);
 
-        if (CollideStatusChangeEvent != null && IsStuffTouchingEmpty())
+        if (CollideStatusChangeEvent != null && IsStuffTouchingEmpty() && !collision.gameObject.CompareTag(PLAYER_TAG))
         {
             IsColliderTouchingAnything = false;
             CollideStatusChangeEvent();
@@ -68,6 +100,22 @@ public class CurrentlyTouching : MonoBehaviour
     #endregion
 
     #region Private methods
+
+    private void ClearDirectionsColliding()
+    {
+        for (int i = 0; i < directionsColliding.Length; i++)
+        {
+            directionsColliding[i] = false;
+        }
+    }
+
+    private void CollidedInDirection(DirectionCollider newDirection)
+    {
+        print("collided in " + newDirection);
+
+        // set the value to true
+        directionsColliding[(int)newDirection] = true;
+    }
 
     private bool IsStuffTouchingEmpty()
     {

@@ -18,6 +18,8 @@ public class ClickToMoveInDirection : MonoBehaviour
     private StickToSurface m_sts;
     private CurrentlyTouching m_ct;
 
+    private float m_degrees = 0;
+
     private void Start()
     {
         m_rb = GetComponent<Rigidbody2D>();
@@ -38,6 +40,10 @@ public class ClickToMoveInDirection : MonoBehaviour
             m_ct.ClearTouchedStuff();
 
             Vector3 worldSpace = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector3 mouseScreen = new Vector3(Input.mousePosition.x - Screen.width * 0.5f, Input.mousePosition.y - Screen.height * 0.5f, Input.mousePosition.z);
+
+            //print(mouseScreen);
 
             //print("Test: " + worldSpace.x + " " + worldSpace.y);
 
