@@ -7,19 +7,18 @@ public class CurrentlyTouching : MonoBehaviour
 {
     // Works as long as you don't jump into the floor (cause sliding)
 
-    public enum DirectionCollider
+    [Flags]
+    public enum DirectionsCollided
     {
-        TOP,
-        LEFT,
-        RIGHT,
-        BOTTOM
+        NONE = 0,
+        TOP = (1 << 0),
+        LEFT = (1 << 1),
+        BOTTOM = (1 << 2),
+        RIGHT = (1 << 3)
     };
 
-    public delegate void OnDirectionColliderColliding(DirectionCollider newDirection);
-    public OnDirectionColliderColliding DirectionColliderEvent;
-
     public delegate void OnFirstCollideOrNoLongerColliding();
-    public OnFirstCollideOrNoLongerColliding CollideStatusChangeEvent;
+    public OnFirstCollideOrNoLongerColliding CollideStatusChangeEvent; // delegate that tells you whenever we are colliding or no longer colliding
 
     public bool IsColliderTouchingAnything
     {
@@ -28,22 +27,14 @@ public class CurrentlyTouching : MonoBehaviour
     }
     private bool m_isColliderTouchingAnything = false;
 
-    public List<DirectionCollider> WhatDirectionDidWeCollideIn
+    public DirectionsCollided GetCollidingFacingDirections
     {
         get 
-        { 
-            List<DirectionCollider> newList = new List<DirectionCollider>();
-                for (int i = 0; i < directionsColliding.Length; i++)
-                {
-                    if (directionsColliding[i])
-                    {
-                        newList.Add((DirectionCollider)i);
-                    }
-                }
-            return newList;
+        {
+            return m_DirCollidatedBitShift;
         }
     }
-    private bool[] directionsColliding = new bool[4];
+    private DirectionsCollided m_DirCollidatedBitShift = DirectionsCollided.NONE;
 
     private HashSet<GameObject> m_stuffTouching; // store the set of GameObjects that is touching the spider
     
@@ -55,6 +46,9 @@ public class CurrentlyTouching : MonoBehaviour
     private GameObject m_firstObject;
 
     private const string PLAYER_TAG = "Player";
+    private const string PLATFORM_LAYER_NAME = "Platform";
+
+    private LayerMask m_platformLayerIndex;
 
     #region Monobehaviour functions
 
@@ -62,8 +56,7 @@ public class CurrentlyTouching : MonoBehaviour
     private void Start()
     {
         m_stuffTouching = new HashSet<GameObject>();
-
-        DirectionColliderEvent += CollidedInDirection;
+        m_platformLayerIndex = LayerMask.NameToLayer(PLATFORM_LAYER_NAME);
     }
 
     #endregion
@@ -72,14 +65,19 @@ public class CurrentlyTouching : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (CollideStatusChangeEvent != null && IsStuffTouchingEmpty() && !collision.gameObject.CompareTag(PLAYER_TAG))
+        if (!collision.gameObject.CompareTag(PLAYER_TAG) && collision.gameObject.layer == m_platformLayerIndex)
         {
-            m_firstObject = collision.collider.gameObject;
-            IsColliderTouchingAnything = true;
-            CollideStatusChangeEvent();
-        }
+            if (CollideStatusChangeEvent != null && IsNotTouchingAnything())
+            {
+                GetDirectionColliding();
 
-        m_stuffTouching.Add(collision.collider.gameObject);
+                m_firstObject = collision.collider.gameObject;
+                IsColliderTouchingAnything = true;
+                CollideStatusChangeEvent();
+            }
+
+            m_stuffTouching.Add(collision.collider.gameObject);
+        }
     }
 
     // don't use oncollisionstay2d b/c you will be stopped above the ground
@@ -87,13 +85,16 @@ public class CurrentlyTouching : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        m_stuffTouching.Remove(collision.collider.gameObject);
-
-        if (CollideStatusChangeEvent != null && IsStuffTouchingEmpty() && !collision.gameObject.CompareTag(PLAYER_TAG))
+        if (!collision.gameObject.CompareTag(PLAYER_TAG) && collision.gameObject.layer == m_platformLayerIndex)
         {
-            IsColliderTouchingAnything = false;
-            CollideStatusChangeEvent();
-            m_firstObject = null;
+            m_stuffTouching.Remove(collision.collider.gameObject);
+
+            if (CollideStatusChangeEvent != null && IsNotTouchingAnything())
+            {
+                IsColliderTouchingAnything = false;
+                CollideStatusChangeEvent();
+                m_firstObject = null;
+            }
         }
     }
 
@@ -103,21 +104,58 @@ public class CurrentlyTouching : MonoBehaviour
 
     private void ClearDirectionsColliding()
     {
-        for (int i = 0; i < directionsColliding.Length; i++)
+        m_DirCollidatedBitShift = DirectionsCollided.NONE;
+    }
+
+    /// <summary>
+    /// This should be called only once if we collided with a platform for the first time.
+    /// </summary>
+    private void GetDirectionColliding()
+    {
+        const float RAYCAST_DISTANCE = 1f;
+
+        // TOP,LEFT,BOTTOM,RIGHT
+        Vector2[] directions = { Vector2.up, Vector2.left, Vector2.down, Vector2.right };
+
+        int layerMask = (1 << m_platformLayerIndex); // bit masking, the 1 bit is the layer we want to focus on
+
+        for (int dirInd = 0; dirInd < directions.Length; dirInd++)
         {
-            directionsColliding[i] = false;
+            RaycastHit2D raycastInfo = Physics2D.Raycast(transform.position, directions[dirInd], RAYCAST_DISTANCE, layerMask);
+
+            //Debug.DrawRay(transform.position, directions[dirInd] * RAYCAST_DISTANCE, Color.yellow, 10f);
+
+            if (raycastInfo.collider != null)
+            {
+                //Debug.Log(directions[dirInd] + " " + raycastInfo.collider.name);
+
+                //m_directionsColliding[dirInd] = true;
+
+                switch (dirInd)
+                {
+                    case 0:
+                        // top
+                        m_DirCollidatedBitShift |= DirectionsCollided.TOP;
+                        break;
+                    case 1:
+                        // left
+                        m_DirCollidatedBitShift |= DirectionsCollided.LEFT;
+                        break;
+                    case 2:
+                        // bottom
+                        m_DirCollidatedBitShift |= DirectionsCollided.BOTTOM;
+                        break;
+                    case 3:
+                        // right
+                        m_DirCollidatedBitShift |= DirectionsCollided.RIGHT;
+                        break;
+                }
+
+            }
         }
     }
 
-    private void CollidedInDirection(DirectionCollider newDirection)
-    {
-        print("collided in " + newDirection);
-
-        // set the value to true
-        directionsColliding[(int)newDirection] = true;
-    }
-
-    private bool IsStuffTouchingEmpty()
+    private bool IsNotTouchingAnything()
     {
         return m_stuffTouching.Count == 0;
     }
@@ -129,6 +167,7 @@ public class CurrentlyTouching : MonoBehaviour
     public void ClearTouchedStuff()
     {
         m_stuffTouching.Clear();
+        ClearDirectionsColliding();
     }
 
     #endregion
