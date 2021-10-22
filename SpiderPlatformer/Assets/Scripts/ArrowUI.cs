@@ -43,16 +43,13 @@ public class ArrowUI : MonoBehaviour
         direction = mousePosition - aPosition;
         transform.right = direction;
         a_transform.position = player1.transform.position;
-        //print("Test: " + worldSpace.x + " " + worldSpace.y);
-        print("Apos");
         print(aPosition);
-        print("player");
         print(player1.transform.position);
         m_force = mousePosition - rb.position;
-        if (Input.GetMouseButtonDown(1))
-        {
-            JamesJump();
-        }
+        //if (input.getmousebuttondown(1))
+        //{
+        //    jamesjump();
+        //}
 
         for(int i = 0; i < numOfPts; i++)
         {
@@ -60,11 +57,11 @@ public class ArrowUI : MonoBehaviour
         }
     }
 
-    void JamesJump()
-    {
-        rb.AddForce(m_force * m_power, ForceMode2D.Force);
-        m_force = Vector3.zero;
-    }
+    //void jamesjump()
+    //{
+    //    rb.addforce(m_force * m_power, forcemode2d.force);
+    //    m_force = vector3.zero;
+    //}
 
     Vector2 PointPosition(float t)
     {
