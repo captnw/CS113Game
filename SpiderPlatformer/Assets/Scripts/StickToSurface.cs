@@ -7,7 +7,7 @@ public class StickToSurface : MonoBehaviour
     // This script actually handles "sticking". However, it is dependent
     // on the delegate CollideStatusChangeEvent from the CurrentlyTouching class (basically an event).
 
-    public RotateThisObject.EventCallback ObjectsShouldRotate; // this delegate is used to rotate the sprite if its on a slope
+    public RotateThisObject.Rotate ObjectsShouldRotate; // this delegate is used to rotate the sprite if its on a slope
 
     private CurrentlyTouching m_ct;
     private Rigidbody2D m_rb;
@@ -39,7 +39,7 @@ public class StickToSurface : MonoBehaviour
 
             if (ObjectsShouldRotate != null)
             {
-                ObjectsShouldRotate.Invoke(m_ct.FirstCollidedObject.transform.rotation);
+                ObjectsShouldRotate.Invoke(m_ct.FirstCollidedObject.transform.rotation, true);
             }
 
             m_rb.constraints = RigidbodyConstraints2D.FreezeAll;
