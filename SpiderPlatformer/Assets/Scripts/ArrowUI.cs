@@ -43,8 +43,8 @@ public class ArrowUI : MonoBehaviour
         direction = mousePosition - aPosition;
         transform.right = direction;
         a_transform.position = player1.transform.position;
-        print(aPosition);
-        print(player1.transform.position);
+        //print(aPosition);
+        //print(player1.transform.position);
         m_force = mousePosition - rb.position;
         //if (input.getmousebuttondown(1))
         //{
