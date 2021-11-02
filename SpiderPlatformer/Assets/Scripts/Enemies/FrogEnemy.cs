@@ -35,7 +35,7 @@ public class FrogEnemy : MonoBehaviour, IKillPlayer
     // Update is called once per frame
     void Update()
     {
-        if (!m_isTargetting)
+        if (!m_isTargetting && m_player)
         {
             float dist = Vector2.Distance(transform.position, m_player.transform.position);
 

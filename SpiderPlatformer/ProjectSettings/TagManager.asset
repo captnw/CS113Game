@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RunnerEnemy
   - ShooterEnemy
+  - Spice
   layers:
   - Default
   - TransparentFX

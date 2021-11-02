@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RatEnemy : MonoBehaviour, IKillPlayer, IMoving
+public class RatEnemy : MonoBehaviour, IMoving
 {
     public float Speed { get { return m_speed; } set { m_speed = value; } }
     [SerializeField]
@@ -15,8 +15,6 @@ public class RatEnemy : MonoBehaviour, IKillPlayer, IMoving
 
     [SerializeField]
     private float m_raycastDistance = 3f;
-
-    private const string PLAYER_TAG = "Player";
 
     private const string PLATFORM_LAYER_NAME = "Platform";
 
@@ -30,12 +28,14 @@ public class RatEnemy : MonoBehaviour, IKillPlayer, IMoving
     private const float RAYCAST_ANGLE_DEGREES = 30f;
 
     // references
+    [SerializeField]
     private Rigidbody2D m_rb;
+
+    [SerializeField]
+    private SpriteRenderer m_sr;
 
     private void Start()
     {
-        m_rb = GetComponent<Rigidbody2D>();
-
         if (m_platformLayerMask == 0)
         {
             m_platformLayerIndex = LayerMask.NameToLayer(PLATFORM_LAYER_NAME);
@@ -53,6 +53,8 @@ public class RatEnemy : MonoBehaviour, IKillPlayer, IMoving
         Move();
 
         m_raycastTimer += Time.time;
+
+        m_sr.flipX = m_isMovingLeft;
     }
 
     private void FixedUpdate()
@@ -73,19 +75,6 @@ public class RatEnemy : MonoBehaviour, IKillPlayer, IMoving
                 m_isMovingLeft = !m_isMovingLeft;
             }
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag(PLAYER_TAG))
-        {
-            Kill(collision.collider.gameObject);
-        }
-    }
-
-    public void Kill(GameObject victim)
-    {
-        Destroy(victim);
     }
 
     public void Move()

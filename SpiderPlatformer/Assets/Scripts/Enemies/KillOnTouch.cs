@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FrogTongueAttack : MonoBehaviour, IKillPlayer
+public class KillOnTouch : MonoBehaviour, IKillPlayer
 {
     private const string PLAYER_TAG = "Player";
 
@@ -16,6 +14,7 @@ public class FrogTongueAttack : MonoBehaviour, IKillPlayer
 
     public void Kill(GameObject victim)
     {
-        Destroy(victim);
+        victim.SetActive(false);
+        GameManager.Instance.CheckRespawn();
     }
 }

@@ -38,22 +38,26 @@ public class ArrowUI : MonoBehaviour
     }
     void Update()
     {
-        Vector2 aPosition = transform.position;
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        direction = mousePosition - aPosition;
-        transform.right = direction;
-        a_transform.position = player1.transform.position;
-        //print(aPosition);
-        //print(player1.transform.position);
-        m_force = mousePosition - rb.position;
-        //if (input.getmousebuttondown(1))
-        //{
-        //    jamesjump();
-        //}
-
-        for(int i = 0; i < numOfPts; i++)
+        // If the player1 exists
+        if (player1)
         {
-            points[i].transform.position = PointPosition(i * spaceBetweenPts);
+            Vector2 aPosition = transform.position;
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            direction = mousePosition - aPosition;
+            transform.right = direction;
+            a_transform.position = player1.transform.position;
+            //print(aPosition);
+            //print(player1.transform.position);
+            m_force = mousePosition - rb.position;
+            //if (input.getmousebuttondown(1))
+            //{
+            //    jamesjump();
+            //}
+
+            for (int i = 0; i < numOfPts; i++)
+            {
+                points[i].transform.position = PointPosition(i * spaceBetweenPts);
+            }
         }
     }
 
