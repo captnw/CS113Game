@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     public Transform m_spawnPosition;
+
+    [SerializeField]
+    private string timerText;
 
     private GameObject m_player; 
 
@@ -63,6 +68,8 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("game over!!");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+
         }
     }
 
@@ -76,4 +83,20 @@ public class GameManager : MonoBehaviour
     {
         return m_numSpicesCollected == m_numSpicesToCollect;
     }
+
+    public int returnSpiceNum()
+    {
+        return m_numSpicesCollected;
+    }
+
+    public string returnTimer()
+    {
+        return timerText;
+    }
+
+    public void setText(string tex)
+    {
+        timerText = tex;
+    }
+
 }

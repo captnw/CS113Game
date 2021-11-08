@@ -10,7 +10,7 @@ public class Timer : MonoBehaviour
     // we don't store hours 
     private int minutes = 0;
     private float seconds = 0;
-
+    private string text;
     [SerializeField]
     private TextMeshProUGUI timerText;
 
@@ -30,7 +30,9 @@ public class Timer : MonoBehaviour
     // Update the timer text
     private void UpdateText()
     {
-        timerText.text = minutes.ToString("00") + ":" + seconds.ToString("00.00");
+        text = minutes.ToString("00") + ":" + seconds.ToString("00.00");
+        timerText.text = text;
+        GameManager.Instance.setText(text);
     }
 
     private float GetSeconds()

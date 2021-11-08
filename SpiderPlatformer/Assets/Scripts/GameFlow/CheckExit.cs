@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CheckExit : MonoBehaviour
 {
@@ -11,11 +12,8 @@ public class CheckExit : MonoBehaviour
         if (collision.CompareTag(PLAYER_TAG))
         {
             GameManager gm = GameManager.Instance;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
 
-            if (gm.HasCollectedAllSpices())
-            {
-                Debug.Log("YOU WIN!");
-            }
         }
     }
 }
