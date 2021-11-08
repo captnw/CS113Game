@@ -15,7 +15,7 @@ public class FrogEnemy : MonoBehaviour, IKillPlayer
     private GameObject m_frogTongue;
 
     [SerializeField]
-    private GameObject m_frogEye; // where the tongue will be extending from
+    private GameObject m_frogMouthPos; // where the tongue will be extending from
 
     [SerializeField]
     private LineRenderer m_lr;
@@ -66,7 +66,7 @@ public class FrogEnemy : MonoBehaviour, IKillPlayer
     {
         m_isTargetting = true;
 
-        GameObject tongue = Instantiate(m_frogTongue, m_frogEye.transform);
+        GameObject tongue = Instantiate(m_frogTongue, m_frogMouthPos.transform);
         tongue.transform.rotation = transform.rotation;
 
         float m_startTime = Time.time;
@@ -75,12 +75,12 @@ public class FrogEnemy : MonoBehaviour, IKillPlayer
         // Extend tongue
         while (Time.time < m_endTime)
         {
-            tongue.transform.position = Vector2.Lerp(m_frogEye.transform.position, target, (Time.time - m_startTime) / m_timeForFrogToExtendTongue);
-            DrawTongue(m_frogEye.transform.position, tongue.transform.position);
+            tongue.transform.position = Vector2.Lerp(m_frogMouthPos.transform.position, target, (Time.time - m_startTime) / m_timeForFrogToExtendTongue);
+            DrawTongue(m_frogMouthPos.transform.position, tongue.transform.position);
             yield return null;
         }
         tongue.transform.position = target;
-        DrawTongue(m_frogEye.transform.position, tongue.transform.position);
+        DrawTongue(m_frogMouthPos.transform.position, tongue.transform.position);
 
         // Unextend tongue
         m_startTime = Time.time;
@@ -88,12 +88,12 @@ public class FrogEnemy : MonoBehaviour, IKillPlayer
         
         while (Time.time < m_endTime)
         {
-            tongue.transform.position = Vector2.Lerp(target, m_frogEye.transform.position, (Time.time - m_startTime) / m_timeForFrogToExtendTongue);
-            DrawTongue(m_frogEye.transform.position, tongue.transform.position);
+            tongue.transform.position = Vector2.Lerp(target, m_frogMouthPos.transform.position, (Time.time - m_startTime) / m_timeForFrogToExtendTongue);
+            DrawTongue(m_frogMouthPos.transform.position, tongue.transform.position);
             yield return null;
         }
-        tongue.transform.position = m_frogEye.transform.position;
-        DrawTongue(m_frogEye.transform.position, tongue.transform.position);
+        tongue.transform.position = m_frogMouthPos.transform.position;
+        DrawTongue(m_frogMouthPos.transform.position, tongue.transform.position);
 
         Destroy(tongue);
 
