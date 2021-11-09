@@ -80,6 +80,11 @@ public class CurrentlyTouching : MonoBehaviour
                 m_firstObject = collision.collider.gameObject;
                 IsColliderTouchingAnything = true;
                 CollideStatusChangeEvent(); // invoke delegate to tell subscribers that we're now colliding
+
+                if (AudioManager.instance)
+                {
+                    AudioManager.instance.Play("JumpLand");
+                }
             }
 
             m_stuffTouching.Add(collision.collider.gameObject);

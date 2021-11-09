@@ -34,6 +34,10 @@ public class RatEnemy : MonoBehaviour, IMoving
     [SerializeField]
     private SpriteRenderer m_sr;
 
+    private const float MIN_SQEAK_TIME = 3f;
+    private const float MAX_SQEAK_TIME = 7f;
+    private float m_timeUntilSqeak = 3f;
+
     private void Start()
     {
         if (m_platformLayerMask == 0)
@@ -49,6 +53,24 @@ public class RatEnemy : MonoBehaviour, IMoving
     private void Update()
     {
         //Debug.Log("IsMovingLeft: " + m_isMovingLeft);
+
+        m_timeUntilSqeak -= Time.deltaTime;
+
+        if (m_timeUntilSqeak <= 0)
+        {
+            m_timeUntilSqeak = Random.Range(MIN_SQEAK_TIME, MAX_SQEAK_TIME);
+
+            if (AudioManager.instance)
+            {
+                // Rat must be on screen to play SFX
+                Vector3 viewPos = Camera.main.WorldToViewportPoint(gameObject.transform.position);
+
+                if (viewPos.x > 0 && viewPos.x < 1 && viewPos.y > 0 && viewPos.y < 1)
+                {
+                    AudioManager.instance.Play("MouseSqueak");
+                }
+            }
+        }
 
         Move();
 

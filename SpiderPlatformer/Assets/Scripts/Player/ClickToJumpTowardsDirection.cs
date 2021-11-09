@@ -76,6 +76,11 @@ public class ClickToJumpTowardsDirection : MonoBehaviour
 
                 m_direction = (worldSpace - transform.position).normalized; // normalize the direction so we can ignore distance (the vector's magnitude is simply 1)
                 m_rb.velocity = m_direction * m_power; // set the velocity to move the character
+
+                if (AudioManager.instance)
+                {
+                    AudioManager.instance.Play("Jump");
+                }
             }
         }
 

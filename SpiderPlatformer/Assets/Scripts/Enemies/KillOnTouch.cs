@@ -14,7 +14,16 @@ public class KillOnTouch : MonoBehaviour, IKillPlayer
 
     public void Kill(GameObject victim)
     {
+        if (AudioManager.instance)
+        {
+            AudioManager.instance.Play("PlayerHurt");
+        }
+
+        // this is the player
         victim.SetActive(false);
+        victim.GetComponent<CurrentlyTouching>().ClearTouchedStuff();
+        victim.GetComponent<StickToSurface>().Unstick();
+
         GameManager.Instance.CheckRespawn();
     }
 }

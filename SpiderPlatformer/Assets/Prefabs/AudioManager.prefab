@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7940992484870606158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7940992484870606159}
+  - component: {fileID: 7940992484870606156}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7940992484870606159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940992484870606158}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7940992484870606156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940992484870606158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bbe1394afc7aa84e80dc3149c38a771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 24300002, guid: 965ce8c41adfdf64ea6e410f53cd4dbd, type: 2}
+  sounds:
+  - name: BGM
+    clip: {fileID: 8300000, guid: a280172e73899cd4c8fcc6ab149134f6, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: -738024410206869251, guid: 965ce8c41adfdf64ea6e410f53cd4dbd, type: 2}
+    source: {fileID: 0}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 3df8add3f1069304c907eb9069ce851b, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 4222925899153741014, guid: 965ce8c41adfdf64ea6e410f53cd4dbd, type: 2}
+    source: {fileID: 0}
+  - name: MouseSqueak
+    clip: {fileID: 8300000, guid: 35283b4c07f428e47b682e9a075437fd, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 4222925899153741014, guid: 965ce8c41adfdf64ea6e410f53cd4dbd, type: 2}
+    source: {fileID: 0}
+  - name: WinLevel
+    clip: {fileID: 8300000, guid: a62dfd8256d2678498d10a0f8e4c2ba6, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 4222925899153741014, guid: 965ce8c41adfdf64ea6e410f53cd4dbd, type: 2}
+    source: {fileID: 0}
+  - name: JumpLand
+    clip: {fileID: 8300000, guid: 2d8ee17d5579fa748ac13d7d8306da2f, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 4222925899153741014, guid: 965ce8c41adfdf64ea6e410f53cd4dbd, type: 2}
+    source: {fileID: 0}
+  - name: FrogCroak
+    clip: {fileID: 8300000, guid: aedc8c03373833341a887c5d45e207c8, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 4222925899153741014, guid: 965ce8c41adfdf64ea6e410f53cd4dbd, type: 2}
+    source: {fileID: 0}
+  - name: Bounce
+    clip: {fileID: 8300000, guid: 6c4a5bec07df54843acb7289f0c1cdbd, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 4222925899153741014, guid: 965ce8c41adfdf64ea6e410f53cd4dbd, type: 2}
+    source: {fileID: 0}
+  - name: Collect
+    clip: {fileID: 8300000, guid: c565a90fb77359845baf34801d142e01, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 4222925899153741014, guid: 965ce8c41adfdf64ea6e410f53cd4dbd, type: 2}
+    source: {fileID: 0}
+  - name: PlayerHurt
+    clip: {fileID: 8300000, guid: 2e55e9b6c113df74e8d0d3d80b820ea1, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 4222925899153741014, guid: 965ce8c41adfdf64ea6e410f53cd4dbd, type: 2}
+    source: {fileID: 0}

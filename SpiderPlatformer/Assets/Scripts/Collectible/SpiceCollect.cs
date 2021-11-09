@@ -10,6 +10,11 @@ public class SpiceCollect : MonoBehaviour
     {
         if (collision.CompareTag(PLAYER_TAG))
         {
+            if (AudioManager.instance)
+            {
+                AudioManager.instance.Play("Collect");
+            }
+
             GameManager.Instance.CollectedSpice();
             Destroy(gameObject);
         }

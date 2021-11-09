@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
     private const string PLAYER_TAG = "Player";
     private const string SPICE_TAG = "Spice";
 
+    // Music tracks
+    private const string BACKGROUND_MUSIC = "BGM";
+
     private void Awake()
     {
         // Ensure that this class a singleton (you can invoke this within any script as long as GameManager exists on a GameObject anywhere in the scene)
@@ -51,6 +54,8 @@ public class GameManager : MonoBehaviour
         m_numSpicesToCollect = GameObject.FindGameObjectsWithTag(SPICE_TAG).Length;
 
         SpiceCounterDisplay.Instance.UpdateText(m_numSpicesCollected, m_numSpicesToCollect);
+
+        AudioManager.instance.Play(BACKGROUND_MUSIC);
     }
 
     /// <summary>
@@ -67,9 +72,12 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("game over!!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+            if (AudioManager.instance)
+            {
+                AudioManager.instance.StopAll();
+            }
 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
         }
     }
 

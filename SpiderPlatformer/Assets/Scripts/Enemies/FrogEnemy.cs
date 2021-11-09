@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FrogEnemy : MonoBehaviour, IKillPlayer
@@ -65,6 +64,17 @@ public class FrogEnemy : MonoBehaviour, IKillPlayer
     private IEnumerator ShootTongue(Vector2 target)
     {
         m_isTargetting = true;
+
+        if (AudioManager.instance)
+        {
+            // Frog must be on screen to play SFX
+            Vector3 viewPos = Camera.main.WorldToViewportPoint(gameObject.transform.position);
+
+            if (viewPos.x > 0 && viewPos.x < 1 && viewPos.y > 0 && viewPos.y < 1)
+            {
+                AudioManager.instance.Play("FrogCroak");
+            }
+        }
 
         GameObject tongue = Instantiate(m_frogTongue, m_frogMouthPos.transform);
         tongue.transform.rotation = transform.rotation;

@@ -12,8 +12,13 @@ public class CheckExit : MonoBehaviour
         if (collision.CompareTag(PLAYER_TAG))
         {
             GameManager gm = GameManager.Instance;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+            
+            if (AudioManager.instance)
+            {
+                AudioManager.instance.StopAll();
+            }
 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
         }
     }
 }

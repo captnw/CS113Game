@@ -15,6 +15,6 @@ public class SliderTextValue : MonoBehaviour
 
     public void SetValue()
     {
-        timerText.text = sliderRef.value.ToString();
+        timerText.text = Mathf.FloorToInt(sliderRef.value / sliderRef.maxValue * 100).ToString();
     }
 }

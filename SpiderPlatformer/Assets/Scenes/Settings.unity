@@ -342,10 +342,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1996254936}
   m_HandleRect: {fileID: 1731379348}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
-  m_Value: 50
+  m_MinValue: 0.001
+  m_MaxValue: 1.2
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -353,6 +353,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SliderTextValue, Assembly-CSharp
         m_MethodName: SetValue
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 327327994}
+        m_TargetAssemblyTypeName: SetVolumes, Assembly-CSharp
+        m_MethodName: SetBGMLevel
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -674,6 +686,7 @@ GameObject:
   m_Component:
   - component: {fileID: 327327992}
   - component: {fileID: 327327993}
+  - component: {fileID: 327327994}
   m_Layer: 5
   m_Name: VolumeStuff
   m_TagString: Untagged
@@ -729,6 +742,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &327327994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327327991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3a3176718cf8841a272d5dda0f1d3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mixer: {fileID: 24100000, guid: 965ce8c41adfdf64ea6e410f53cd4dbd, type: 2}
+  m_masterSlider: {fileID: 1233954748}
+  m_BGMSlider: {fileID: 57079006}
+  m_SFXSlider: {fileID: 1546943292}
 --- !u!1 &519718547
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,7 +1022,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1918,7 +1947,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2078,10 +2107,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 765644202}
   m_HandleRect: {fileID: 2115078768}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
-  m_Value: 50
+  m_MinValue: 0.001
+  m_MaxValue: 1.2
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2089,6 +2118,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SliderTextValue, Assembly-CSharp
         m_MethodName: SetValue
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 327327994}
+        m_TargetAssemblyTypeName: SetVolumes, Assembly-CSharp
+        m_MethodName: SetMasterLevel
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2154,7 +2195,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2504,7 +2545,7 @@ GameObject:
   - component: {fileID: 1531227814}
   - component: {fileID: 1531227815}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: SoundCanvasGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2626,10 +2667,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1063474261}
   m_HandleRect: {fileID: 940860848}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
-  m_Value: 50
+  m_MinValue: 0.001
+  m_MaxValue: 1.2
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2637,6 +2678,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SliderTextValue, Assembly-CSharp
         m_MethodName: SetValue
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 327327994}
+        m_TargetAssemblyTypeName: SetVolumes, Assembly-CSharp
+        m_MethodName: SetSFXLevel
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
