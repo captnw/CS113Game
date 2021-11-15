@@ -16,9 +16,9 @@ public class LivesDisplay : MonoBehaviour
     private Sprite m_fullHeart;
     private Sprite m_emptyHeart;
 
-    private const string ICON_PATH = "Sprites/Icons/";
-    private const string FULL_HEART = "HeartFull";
-    private const string EMPTY_HEART = "HeartEmpty";
+    private const string ICON_PATH = "Sprites/HUD Assets/In-game/";
+    private const string FULL_HEART = "heart 1";
+    private const string EMPTY_HEART = "heart 2";
 
     private Image[] m_lives;
 
