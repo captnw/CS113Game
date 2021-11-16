@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
+    [SerializeField]
+    private DataTransition m_dataOBJ;
+
     private void AudioManagerDo(int thingToDo)
     {
         if (AudioManager.instance != null)
@@ -25,8 +28,20 @@ public class MainMenuScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Clear any data in the DataOBJ.
+    /// </summary>
+    private void ResetDataOBJ()
+    {
+        m_dataOBJ.minutes = 0;
+        m_dataOBJ.seconds = 0;
+        m_dataOBJ.numSpicesCollected = 0;
+        m_dataOBJ.numSpicesLevel = 0;
+    }
+
     public void PlayGame()
     {
+        ResetDataOBJ();
         AudioManagerDo(0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
@@ -42,6 +57,12 @@ public class MainMenuScript : MonoBehaviour
         //Debug.Log("Quit");
         AudioManagerDo(0);
         Application.Quit();
+    }
+
+    public void GoToMainMenu()
+    {
+        AudioManagerDo(0);
+        SceneManager.LoadScene(0);
     }
 
     public void Back2()

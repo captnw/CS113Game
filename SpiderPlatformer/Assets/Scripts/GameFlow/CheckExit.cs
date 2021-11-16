@@ -18,6 +18,7 @@ public class CheckExit : MonoBehaviour
                 AudioManager.instance.StopAll();
             }
 
+            gm.SetDataBeforeTransition();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
         }
     }

@@ -3464,6 +3464,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5633056875984533784, guid: d6963d379743937418827e42105929d4, type: 3}
+      propertyPath: m_dataObj
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b5fac36dc5f70a4e81d74d905f6456e, type: 2}
     - target: {fileID: 5633056875984533785, guid: d6963d379743937418827e42105929d4, type: 3}
       propertyPath: timerText
       value: 

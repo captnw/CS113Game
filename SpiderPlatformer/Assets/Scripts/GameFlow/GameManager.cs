@@ -7,7 +7,6 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
-
     public static GameManager Instance { get { return _instance; } }
 
     [SerializeField]
@@ -16,7 +15,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private string timerText;
 
-    private GameObject m_player; 
+    private GameObject m_player;
+
+    [SerializeField]
+    private DataTransition m_dataObj;
 
     // Player lives stuff
     public int PlayerLives
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
                 AudioManager.instance.StopAll();
             }
 
+            SetDataBeforeTransition();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
         }
     }
@@ -107,4 +110,15 @@ public class GameManager : MonoBehaviour
         timerText = tex;
     }
 
+    /// <summary>
+    /// Invoke this before you transition to any new scene.
+    /// We need this to pass info from scene to scene.
+    /// </summary>
+    public void SetDataBeforeTransition()
+    {
+        m_dataObj.numSpicesLevel = m_numSpicesToCollect;
+        m_dataObj.numSpicesCollected = m_numSpicesCollected;
+        m_dataObj.minutes = Timer.Instance.Minutes;
+        m_dataObj.seconds = Timer.Instance.Seconds;
+    }
 }
